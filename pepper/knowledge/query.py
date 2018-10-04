@@ -35,7 +35,7 @@ class QnA:
         "I like you": "I like you too!",
         "Can you hear me?": "Yes, I can hear you!",
         "My name is": "I'm glad to meet you! My name is Leo Lani!",
-        "What is this": "That is an object! I'm playing it safe here!",
+        # "What is this": "That is an object! I'm playing it safe here!",
 
         "What is your name?": "My name is Leo Lani, which means 'Voice of an Angel' in Hawaiian",
         "What is your surname?": "I don't need a surname, since my first name is so beautiful!",

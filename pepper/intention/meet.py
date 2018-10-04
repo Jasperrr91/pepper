@@ -22,7 +22,7 @@ class MeetAction(Enum):
 
 class MeetIntention(AbstractIntention):
 
-    MIN_SAMPLES = 25
+    MIN_SAMPLES = 20
 
     def __init__(self, app, return_intention):
         super(MeetIntention, self).__init__(app)

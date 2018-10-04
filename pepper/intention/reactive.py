@@ -11,9 +11,13 @@ from pepper.knowledge.query import QnA
 
 from pepper.knowledge.sentences import *
 from random import getrandbits, choice
+from time import time
 
 
 class ReactiveIntention(AbstractIntention):
+
+    MIN_CHAT_TIME = 6
+
     def __init__(self, app):
         super(ReactiveIntention, self).__init__(app)
 
@@ -24,6 +28,7 @@ class ReactiveIntention(AbstractIntention):
         self._speaker = "human"
         self._chat_id = None
         self._chat_turn = 0
+        self._chat_time = 0
 
         # Set of Objects seen (passed to NLP as a list)
         self._objects = set()
@@ -35,12 +40,13 @@ class ReactiveIntention(AbstractIntention):
         self.initiate_conversation(name)
 
     def initiate_conversation(self, name):
-        if name != self._speaker:  # If person switches
+        if name != self._speaker and (time() - self._chat_time) > self.MIN_CHAT_TIME:  # If person switches
 
             # Initiate Conversation
             self._speaker = name
             self._chat_id = getrandbits(128)
             self._chat_turn = 0
+            self._chat_time = time()
             self.log.info("Initiated Conversation with {}".format(self._speaker))
 
             # Greet Person
@@ -108,7 +114,8 @@ class ReactiveIntention(AbstractIntention):
                 if answer:
                     self.say("{} {}. {}".format(choice(ADDRESSING), self._speaker, answer))
                 else:
-                    self.say("I heard: {}, but I don't understand it!".format(utterance))
+                    pass
+                    # self.say("I heard: {}, but I don't understand it!".format(utterance))
                 return
 
             # Process Questions
